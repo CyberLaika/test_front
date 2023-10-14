@@ -14,28 +14,30 @@ const y = canvas.height / 2
 let player
 let bot
 
+const players = []
+
 socket.on('sessionInfo', (sessionInfo) => {
   console.log(sessionInfo)
   player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 10, 'white')
   bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 10, 'red')
   player.draw()
   bot.draw()
+  players.push(player)
+  players.push(bot)
 }) 
 
 const projectiles = []
-const enemies = []
 const particles = []
 
-
 let animationId
-let score = 0
 function animate() {
   animationId = requestAnimationFrame(animate)
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
 
-  player.draw()
-  bot.draw()
+   for (let index = players.length - 1; index >= 0; index--) {
+        players[index].draw()
+    }
 }
 
 animate()
