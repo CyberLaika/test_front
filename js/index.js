@@ -43,9 +43,26 @@ function animate() {
 animate()
 
 window.addEventListener('keydown', (event) => {
-  console.log(event)
-})
+  if (!frontEndPlayers[socket.id]) return
 
+  switch (event.code) {
+    case 'KeyW':
+      player.x = player.y + 10
+      break
+
+    case 'KeyA':
+      player.x = player.x - 10
+      break
+
+    case 'KeyS':
+      player.x = player.y - 10
+      break
+
+    case 'KeyD':
+      player.x = player.x + 10
+      break
+  }
+})
 
 
 // function spawnEnemies() {
