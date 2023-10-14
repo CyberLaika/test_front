@@ -11,18 +11,13 @@ const socket = io()
 const x = canvas.width / 2
 const y = canvas.height / 2
 
-const player = new Player(x, y, 10, 'white')
-const players = {}
+let player
+let bot
 
-socket.on('updatePlayers', (backPlayers) => {
-  console.log(backPlayers)
-  for (const id in backPlayers){
-    const backPlayer = backPlayers[id]
-
-    if (!players[id]){
-      players[id] = new Player(backPlayer.x, backPlayer.y,  10, 'white')
-    } 
-  }
+socket.on('sessionInfo', (sessionInfo) => {
+  console.log(sessionInfo)
+  player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 10, 'white')
+  bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 10, 'red')
 }) 
 
 const projectiles = []
@@ -37,9 +32,12 @@ function animate() {
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
 
-  for (const id in players){
-    players[id].draw()
-  }
+  player.draw()
+  bot.draw()
+
+  // for (const id in players){
+  //   players[id].draw()
+  // }
 }
 
 animate()
