@@ -15,11 +15,13 @@ const y = canvas.height / 2
 
 let player
 let bot
+var inited = new Boolean(false);
 
 socket.on('sessionInfo', (sessionInfo) => {
   console.log(sessionInfo)
   player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 10, 'white')
   bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 10, 'red')
+  inited = new Boolean(true)
 }) 
 
 const projectiles = []
@@ -33,6 +35,10 @@ function animate() {
   animationId = requestAnimationFrame(animate)
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
+
+  while(!inited){
+    
+  }
 
   player.draw()
   bot.draw()
