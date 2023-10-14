@@ -6,6 +6,8 @@ const scoreEl = document.querySelector('#scoreEl')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
+const socket = io()
+
 const x = canvas.width / 2
 const y = canvas.height / 2
 
