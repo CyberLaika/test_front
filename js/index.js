@@ -43,8 +43,6 @@ function animate() {
 animate()
 
 window.addEventListener('keydown', (event) => {
-  if (!frontEndPlayers[socket.id]) return
-
   switch (event.code) {
     case 'KeyW':
       player.x = player.y + 10
