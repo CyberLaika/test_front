@@ -45,7 +45,7 @@ animate()
 window.addEventListener('keydown', (event) => {
   switch (event.code) {
     case 'KeyW':
-      player.x = player.y + 10
+      player.y = player.y + 10
       break
 
     case 'KeyA':
@@ -53,7 +53,7 @@ window.addEventListener('keydown', (event) => {
       break
 
     case 'KeyS':
-      player.x = player.y - 10
+      player.y = player.y - 10
       break
 
     case 'KeyD':
