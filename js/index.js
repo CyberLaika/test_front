@@ -8,6 +8,8 @@ canvas.height = innerHeight
 
 const socket = io()
 
+
+
 const x = canvas.width / 2
 const y = canvas.height / 2
 
@@ -41,6 +43,10 @@ function animate() {
 }
 
 animate()
+
+window.addEventListener('keydown', (event) => {
+  console.log(event)
+})
 
 
 
