@@ -37,7 +37,7 @@ function animate() {
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
 
-  for (const in in players){
+  for (const in players){
     players.draw()
   }
 }
