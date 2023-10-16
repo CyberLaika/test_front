@@ -47,7 +47,7 @@ animate()
 
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
-  if (botAndPlayer && oldX != player.x || oldY != player.y){
+  if (botAndPlayer && (oldX != player.x || oldY != player.y)){
     socket.emit(
       'updatePlayer', 
       {
