@@ -49,7 +49,7 @@ animate()
 setInterval(() => {
 
   // бьединить их, сделано  в рамках дебага
-  if (botAndPlayer){
+  if (botAndPlayer.length > 0){
     console.log(player)
     if (oldX != player.x || oldY != player.y){
       socket.emit(
@@ -60,6 +60,8 @@ setInterval(() => {
           sessionId: socket.id,
         }
       )
+      oldX = player.x
+      oldY = player.y
     }
   }
 }, 15)
