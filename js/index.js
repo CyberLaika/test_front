@@ -11,8 +11,8 @@ const socket = io()
 const x = canvas.width / 2
 const y = canvas.height / 2
 
-const oldX = -1111111
-const oldY = -1111111
+var oldX = -1111111
+var oldY = -1111111
 
 let player
 let bot
@@ -64,10 +64,6 @@ setInterval(() => {
       )
       oldX = player.x
       oldY = player.y
-      console.log(oldX)
-      console.log(oldY)
-      console.log(player.x)
-      console.log(player.y)
     }
   }
 }, 15)
