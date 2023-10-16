@@ -48,7 +48,14 @@ animate()
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
   if (player && oldX != player.x || oldY != player.y){
-    io.to(socket.id).emit('updatePlayer', player.toDict())
+    io.to(socket.id).emit(
+      'updatePlayer', 
+      {
+        x: player.x,
+        y: player.y,
+        sessionId: socket.id,
+      }
+    )
   }  
 }, 15)
 

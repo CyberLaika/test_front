@@ -12,12 +12,4 @@ class Player {
     c.fillStyle = this.color
     c.fill()
   }
-
-  fun toDict(){
-    return {
-      x: this.x,
-      y: this.y,
-      sessionId: this.sessionId,
-    }
-  }
 }
