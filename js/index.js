@@ -25,8 +25,8 @@ socket.on('sessionInfo', (sessionInfo) => {
   bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 10, 'red')
   player.draw()
   bot.draw()
-  botAndPlayer.push(player)
   botAndPlayer.push(bot)
+  botAndPlayer.push(player)
 }) 
 
 const projectiles = []
@@ -47,8 +47,8 @@ animate()
 
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
-  if (player && oldX != player.x || oldY != player.y){
-    io.to(socket.id).emit(
+  if (botAndPlayer && oldX != player.x || oldY != player.y){
+    socket.emit(
       'updatePlayer', 
       {
         x: player.x,
