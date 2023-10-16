@@ -11,10 +11,13 @@ const socket = io()
 const x = canvas.width / 2
 const y = canvas.height / 2
 
+const oldX = -1111111
+const oldY = -1111111
+
 let player
 let bot
 
-const players = []
+const botAndPlayer = []
 
 socket.on('sessionInfo', (sessionInfo) => {
   console.log(sessionInfo)
@@ -22,8 +25,8 @@ socket.on('sessionInfo', (sessionInfo) => {
   bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 10, 'red')
   player.draw()
   bot.draw()
-  players.push(player)
-  players.push(bot)
+  botAndPlayer.push(player)
+  botAndPlayer.push(bot)
 }) 
 
 const projectiles = []
@@ -35,13 +38,21 @@ function animate() {
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
 
-   for (let index = players.length - 1; index >= 0; index--) {
-        players[index].draw()
+   for (let index = botAndPlayer.length - 1; index >= 0; index--) {
+        botAndPlayer[index].draw()
     }
 }
 
 animate()
 
+// пока оставляем рассчет на стороне клиента
+setInterval(() => {
+  if (player && oldX != player.x || oldY != player.y){
+    io.to(socket.id).emit('updatePlayer', player.toDict())
+  }  
+}, 15)
+
+// пока оставляем рассчет на стороне клиента
 window.addEventListener('keydown', (event) => {
   switch (event.code) {
     case 'KeyW':
