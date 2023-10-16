@@ -47,16 +47,21 @@ animate()
 
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
-  if (botAndPlayer && (oldX != player.x || oldY != player.y)){
-    socket.emit(
-      'updatePlayer', 
-      {
-        x: player.x,
-        y: player.y,
-        sessionId: socket.id,
-      }
-    )
-  }  
+
+  // бьединить их, сделано  в рамках дебага
+  if (botAndPlayer){
+    console.log(player)
+    if (oldX != player.x || oldY != player.y){
+      socket.emit(
+        'updatePlayer', 
+        {
+          x: player.x,
+          y: player.y,
+          sessionId: socket.id,
+        }
+      )
+    }
+  }
 }, 15)
 
 // пока оставляем рассчет на стороне клиента
