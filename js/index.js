@@ -29,6 +29,14 @@ socket.on('sessionInfo', (sessionInfo) => {
   botAndPlayer.push(player)
 }) 
 
+socket.on('updateBot',  ({ x, y }) => {
+  if (bot){
+    bot.x = x
+    bot.y = y
+  }
+  console.log('bot info updated')
+}) 
+
 const projectiles = []
 const particles = []
 
