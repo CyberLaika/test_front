@@ -47,6 +47,15 @@ animate()
 
 var i = 0
 
+//ping pong
+setInterval(() => {
+    socket.emit(
+      'ping', 
+      socket.id,
+    )
+    console.log(`ping sended`)
+  }, 60)
+
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
   if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
