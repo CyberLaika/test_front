@@ -49,22 +49,17 @@ var i = 0
 
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
-
-  if (i < 50){
-    i = i + 1
-  // бьединить их, сделано  в рамках дебага
-    if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
-      socket.emit(
-        'updatePlayer', 
-        {
-          x: player.x,
-          y: player.y,
-          sessionId: socket.id,
-        }
-      )
-      oldX = player.x
-      oldY = player.y
-    }
+  if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
+    socket.emit(
+      'updatePlayer', 
+      {
+        x: player.x,
+        y: player.y,
+        sessionId: socket.id,
+      }
+    )
+    oldX = player.x
+    oldY = player.y
   }
 }, 15)
 
