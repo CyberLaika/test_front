@@ -50,19 +50,17 @@ var i = 0
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
   if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
-    const updateInfo = {
-      x: player.x,
-      y: player.y,
-      sessionId: socket.id,
-    }
-
     socket.emit(
       'updatePlayer', 
-      updateInfo,
+      {
+        x: player.x,
+        y: player.y,
+        sessionId: socket.id,
+      },
     )
     oldX = player.x
     oldY = player.y
-    console.log(`update sended with info ${updateInfo}`)
+    console.log(`update sended`)
   }
 }, 15)
 
