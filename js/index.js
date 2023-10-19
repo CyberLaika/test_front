@@ -60,6 +60,7 @@ setInterval(() => {
     )
     oldX = player.x
     oldY = player.y
+    console.log('update sended')
   }
 }, 15)
 
