@@ -43,29 +43,22 @@ function animate() {
     }
 }
 
-animate()
-
 var i = 0
 
 //ping pong
-setInterval(() => {
-    socket.emit(
-      'ping', 
-      socket.id,
-    )
-    console.log(`ping sended`)
-  }, 60)
+// setInterval(() => {
+//     socket.emit(
+//       'ping', 
+//       socket.id,
+//     )
+//     console.log(`ping sended`)
+//   }, 60)
 
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
   if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
     socket.emit(
-      'updatePlayer', 
-      {
-        x: player.x,
-        y: player.y,
-        sessionId: socket.id,
-      },
+      'updatePlayer', { x: player.x, y: player.y },
     )
     oldX = player.x
     oldY = player.y
@@ -93,6 +86,8 @@ window.addEventListener('keydown', (event) => {
       break
   }
 })
+
+animate()
 
 
 // function spawnEnemies() {
