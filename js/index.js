@@ -21,10 +21,18 @@ let isGameOver = false
 
 const botAndPlayer = []
 
+
+function drawGameOver() {
+  c.font = "20px Courier New";
+  c.textAlign = 'center';
+  c.fillStyle = "#000000";
+  c.fillText("HAHA YU LOOZD (pres doun arouw tu x-it)", canvas.width/2, canvas.height/2);
+}
+
 socket.on('sessionInfo', (sessionInfo) => {
   console.log(sessionInfo)
-  player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 5, 'white')
-  bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 5, 'red')
+  player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 7, 'white')
+  bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 7, 'red')
   player.draw()
   bot.draw()
   botAndPlayer.push(bot)
@@ -50,13 +58,17 @@ const particles = []
 
 let animationId
 function animate() {
-  animationId = requestAnimationFrame(animate)
-  c.fillStyle = 'rgba(0, 0, 0, 0.1)'
-  c.fillRect(0, 0, canvas.width, canvas.height)
+  if (isGameOver){
+    drawGameOver()
+  } else {
+    animationId = requestAnimationFrame(animate)
+    c.fillStyle = 'rgba(0, 0, 0, 0.1)'
+    c.fillRect(0, 0, canvas.width, canvas.height)
 
-   for (let index = botAndPlayer.length - 1; index >= 0; index--) {
-        botAndPlayer[index].draw()
-    }
+     for (let index = botAndPlayer.length - 1; index >= 0; index--) {
+          botAndPlayer[index].draw()
+      }
+  }
 }
 
 var i = 0
@@ -88,10 +100,12 @@ const keys = {
   }
 }
 
-const SPEED = 1
+const SPEED = 2
 const playerInputs = []
 
 setInterval(() => {
+  if (isGameOver) return
+
   if (keys.w.pressed) {
     player.y = player.y - SPEED
   }
