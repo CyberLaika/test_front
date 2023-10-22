@@ -23,8 +23,8 @@ const botAndPlayer = []
 
 socket.on('sessionInfo', (sessionInfo) => {
   console.log(sessionInfo)
-  player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 10, 'white')
-  bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 10, 'red')
+  player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 5, 'white')
+  bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 5, 'red')
   player.draw()
   bot.draw()
   botAndPlayer.push(bot)
@@ -73,32 +73,6 @@ setInterval(() => {
   }
 }, 15)
 
-// пока оставляем рассчет на стороне клиента
-// window.addEventListener('keydown', (event) => {
-//   if (isGameOver){
-//     return
-//   }
-//   switch (event.code) {
-//     case 'KeyW':
-//       player.y = player.y - 10
-//       break
-
-//     case 'KeyA':
-//       player.x = player.x - 10
-//       break
-
-//     case 'KeyS':
-//       player.y = player.y + 10
-//       break
-
-//     case 'KeyD':
-//       player.x = player.x + 10
-//       break
-//   }
-// })
-
-
-
 const keys = {
   w: {
     pressed: false
@@ -114,24 +88,24 @@ const keys = {
   }
 }
 
-const SPEED = 5
+const SPEED = 1
 const playerInputs = []
 
 setInterval(() => {
   if (keys.w.pressed) {
-    player.y = player.y - 10
+    player.y = player.y - SPEED
   }
 
   if (keys.a.pressed) {
-    player.x = player.x - 10
+    player.x = player.x - SPEED
   }
 
   if (keys.s.pressed) {
-   player.y = player.y + 10
+   player.y = player.y + SPEED
   }
 
   if (keys.d.pressed) {
-     player.x = player.x + 10
+     player.x = player.x + SPEED
   }
 }, 15)
 
