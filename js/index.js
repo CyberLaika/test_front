@@ -177,7 +177,7 @@ window.addEventListener('keyup', (event) => {
       keys.d.pressed = false
       break
   }
-}
+})
 
 
 
