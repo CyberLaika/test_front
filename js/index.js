@@ -32,7 +32,8 @@ socket.on('sessionInfo', (sessionInfo) => {
 }) 
 
 socket.on('updateBot',  ({ x, y }) => {
-  if (bot){
+  if (isGameOver) return
+  if (bot ){
     bot.x = x
     bot.y = y
   }
@@ -136,7 +137,7 @@ setInterval(() => {
 
 
 window.addEventListener('keydown', (event) => {
-  if (!frontEndPlayers[socket.id]) return
+  if (isGameOver) return
 
   switch (event.code) {
     case 'KeyW':
@@ -158,7 +159,7 @@ window.addEventListener('keydown', (event) => {
 })
 
 window.addEventListener('keyup', (event) => {
-  if (!frontEndPlayers[socket.id]) return
+  if (isGameOver) return
 
   switch (event.code) {
     case 'KeyW':
