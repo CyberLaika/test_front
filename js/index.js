@@ -17,6 +17,8 @@ var oldY = -1111111
 let player
 let bot
 
+let isGameOver = false
+
 const botAndPlayer = []
 
 socket.on('sessionInfo', (sessionInfo) => {
@@ -37,6 +39,11 @@ socket.on('updateBot',  ({ x, y }) => {
   console.log('bot info updated')
 }) 
 
+socket.on('gameOver', () => {
+  isGameOver = true
+  console.log('game is over')
+}) 
+
 const projectiles = []
 const particles = []
 
@@ -53,15 +60,6 @@ function animate() {
 
 var i = 0
 
-//ping pong
-// setInterval(() => {
-//     socket.emit(
-//       'ping', 
-//       socket.id,
-//     )
-//     console.log(`ping sended`)
-//   }, 60)
-
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
   if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
@@ -75,25 +73,117 @@ setInterval(() => {
 }, 15)
 
 // пока оставляем рассчет на стороне клиента
+// window.addEventListener('keydown', (event) => {
+//   if (isGameOver){
+//     return
+//   }
+//   switch (event.code) {
+//     case 'KeyW':
+//       player.y = player.y - 10
+//       break
+
+//     case 'KeyA':
+//       player.x = player.x - 10
+//       break
+
+//     case 'KeyS':
+//       player.y = player.y + 10
+//       break
+
+//     case 'KeyD':
+//       player.x = player.x + 10
+//       break
+//   }
+// })
+
+
+
+const keys = {
+  w: {
+    pressed: false
+  },
+  a: {
+    pressed: false
+  },
+  s: {
+    pressed: false
+  },
+  d: {
+    pressed: false
+  }
+}
+
+const SPEED = 5
+const playerInputs = []
+
+setInterval(() => {
+  if (keys.w.pressed) {
+    player.y = player.y - 10
+  }
+
+  if (keys.a.pressed) {
+    player.x = player.x - 10
+  }
+
+  if (keys.s.pressed) {
+   player.y = player.y + 10
+  }
+
+  if (keys.d.pressed) {
+     player.x = player.x + 10
+  }
+}, 15)
+
+
 window.addEventListener('keydown', (event) => {
+  if (!frontEndPlayers[socket.id]) return
+
   switch (event.code) {
     case 'KeyW':
-      player.y = player.y - 10
+      keys.w.pressed = true
       break
 
     case 'KeyA':
-      player.x = player.x - 10
+      keys.a.pressed = true
       break
 
     case 'KeyS':
-      player.y = player.y + 10
+      keys.s.pressed = true
       break
 
     case 'KeyD':
-      player.x = player.x + 10
+      keys.d.pressed = true
       break
   }
 })
+
+window.addEventListener('keyup', (event) => {
+  if (!frontEndPlayers[socket.id]) return
+
+  switch (event.code) {
+    case 'KeyW':
+      keys.w.pressed = false
+      break
+
+    case 'KeyA':
+      keys.a.pressed = false
+      break
+
+    case 'KeyS':
+      keys.s.pressed = false
+      break
+
+    case 'KeyD':
+      keys.d.pressed = false
+      break
+  }
+}
+
+
+
+
+
+
 
 animate()
 
