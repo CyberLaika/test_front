@@ -25,7 +25,7 @@ const botAndPlayer = []
 function drawGameOver() {
   c.font = "20px Courier New";
   c.textAlign = 'center';
-  c.fillStyle = "#000000";
+  c.fillStyle = "#ffffff";
   c.fillText("HAHA YU LOOZD (pres doun arouw tu x-it)", canvas.width/2, canvas.height/2);
 }
 
