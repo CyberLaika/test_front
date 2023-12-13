@@ -15,11 +15,12 @@ var oldX = -1111111
 var oldY = -1111111
 
 let player
-let bot
+let bot1
+let bot2
 
 let isGameOver = false
 
-const botAndPlayer = []
+const botsAndPlayer = []
 
 
 function drawGameOver() {
@@ -29,21 +30,37 @@ function drawGameOver() {
   c.fillText("GAME OVER", canvas.width/2, canvas.height/2);
 }
 
+const sessionInfo = {
+  playerX: player.x,
+  playerY: player.y,
+  bot1X: bot1.x,
+  bot1Y: bot1.y,
+  bot2X: bot2.x,
+  bot2Y: bot2.y,
+}
+
 socket.on('sessionInfo', (sessionInfo) => {
   console.log(sessionInfo)
   player = new Player(sessionInfo['playerX'], sessionInfo['playerY'], 7, 'white')
-  bot = new Player(sessionInfo['botX'], sessionInfo['botY'], 7, 'red')
+  bot1 = new Player(sessionInfo['bot1X'], sessionInfo['bot1Y'], 7, 'red')
+  bot2 = new Player(sessionInfo['bot2X'], sessionInfo['bot2Y'], 7, 'orange')
   player.draw()
-  bot.draw()
-  botAndPlayer.push(bot)
-  botAndPlayer.push(player)
+  bot1.draw()
+  bot2.draw()
+  botsAndPlayer.push(bot1)
+  botsAndPlayer.push(bot2)
+  botsAndPlayer.push(player)
 }) 
 
-socket.on('updateBot',  ({ x, y }) => {
+socket.on('updateBot',  ({ x1, y1, x2, y2 }) => {
   if (isGameOver) return
-  if (bot ){
-    bot.x = x
-    bot.y = y
+  if (bot1){
+    bot1.x = x1
+    bot1.y = y1
+  }
+  if (bot1){
+    bot2.x = x2
+    bot2.y = y2
   }
   console.log('bot info updated')
 }) 
@@ -65,8 +82,8 @@ function animate() {
     c.fillStyle = 'rgba(0, 0, 0, 0.1)'
     c.fillRect(0, 0, canvas.width, canvas.height)
 
-     for (let index = botAndPlayer.length - 1; index >= 0; index--) {
-          botAndPlayer[index].draw()
+     for (let index = botsAndPlayer.length - 1; index >= 0; index--) {
+          botsAndPlayer[index].draw()
       }
   }
 }
@@ -75,7 +92,7 @@ var i = 0
 
 // пока оставляем рассчет на стороне клиента
 setInterval(() => {
-  if (botAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
+  if (botsAndPlayer.length > 0 && (oldX != player.x || oldY != player.y)){
     socket.emit(
       'updatePlayer', { x: player.x, y: player.y },
     )
