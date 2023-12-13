@@ -58,11 +58,11 @@ socket.on('updateBot',  ({ x1, y1, x2, y2 }) => {
     bot1.x = x1
     bot1.y = y1
   }
-  if (bot1){
+  if (bot2){
     bot2.x = x2
     bot2.y = y2
   }
-  console.log('bot info updated')
+  console.log('bots info updated')
 }) 
 
 socket.on('gameOver', () => {
